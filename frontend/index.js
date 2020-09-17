@@ -4,7 +4,7 @@ const newButton = document.getElementById('newJava')
 const baseUrl = 'http://localhost:3000'
 
         window.addEventListener('load', () => {
-            loadPeople()
+            eventClick()
         })
 
 
@@ -22,18 +22,18 @@ const baseUrl = 'http://localhost:3000'
                     `
            ).join('')
 
-            linkClick()          
+            eventClick()          
            })
         }
 
-    function linkClick() {
+    function eventClick() {
         let people = document.querySelectorAll('li a')
             people.forEach(person => {
-                person.addEventListener('click', loadPeople)
+                person.addEventListener('click', displayStory)
                 }) 
 
             document.getElementById('newJava').addEventListener('click', displayCreateStory)
-            
+            document.getElementById('viewJava').addEventListener('click', loadPeople)
             }
          //show link
 
@@ -64,7 +64,19 @@ const baseUrl = 'http://localhost:3000'
             
     //     )}
 
-        function displayStory() {
+        function displayStory() { 
+            //clearForm()
+            let id = event.target.dataset.id
+            let main = document.getElementById('main')
+            main.innerHTML = ""
+            fetch(baseUrl + '/people/'+id)
+            .then(resp => resp.json())
+            .then(person => {
+                main.innerHTML += `
+                <h3>${person.name}'s Java Story</h3> 
+                `
+            })
+            
         }
 
         function resetStory() {
@@ -124,7 +136,7 @@ const baseUrl = 'http://localhost:3000'
                     <a href="#" data-id="${person.id}">${person.name}'s Java Script...</a>   
                 </li>  
                 `
-                linkClick()   
+                eventClick()   
             })
         } 
      
