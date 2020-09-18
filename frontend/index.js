@@ -3,6 +3,8 @@ const newButton = document.getElementById('newJava')
 const deleteButton = document.getElementById('delete')
 const viewJava = document.getElementById('viewJava')
 const editButton = document.getElementById('edit')
+const addButton = document.getElementById('addJava')
+
 
 const baseUrl = 'http://localhost:3000'
 
@@ -19,19 +21,18 @@ const baseUrl = 'http://localhost:3000'
             people.forEach(person => {
               main.innerHTML +=  `
                 <li id="person-${person.id}">
-                    <a href="#" data-id="${person.id}">${person.name}'s Java Story...</a> 
+                    <a href="#" data-id="${person.id}">${person.name}</a> 
                     <ul id="javaBars">
-                    </ul>  
+                    <button id='addJava'>Add Java Script</button>
+                </ul>
                 </li>
+                
                 `
                 eventClick()   
                          
             })
         })  
     }
-           
-
-    
          //show link
 
     // function getStory() {
@@ -108,38 +109,26 @@ const baseUrl = 'http://localhost:3000'
             <form>
                 <label>Your Name:</label>
                 <input type="text" id="person_name">
-
-                <label>Java Shop:</label>
-                <input type="text" id="shop_name">
-
-                <label>Your Favorite Drink:</label>
-                <input type="text" id="fav_drink">
-
-                <label>Least Favorite Drink:</label>
-                <input type="text" id="least_fav">
-
-                <label>Recommend?</label>
-                <input type="checkbox" id="recommend">
-                
-                <label>Comments:</label>
-                <input type="textarea" id="comment">
-
-                <input type="submit" Add Story>
-        </form>
+                <input type="submit" >
+            </form>
             `
             javaFormDiv.innerHTML = story
             document.getElementById('java-form').addEventListener('submit', createPerson)
+        }
+
+        function displayJavaForm(){
+
         }
 
         function createPerson() {
             event.preventDefault()
             const person = {
                 name: document.getElementById('person_name').value,
-                shopName: document.getElementById('shop-name').value,
-                favoriteDrink: document.getElementById('fav_drink').value,
-                leastFav: document.getElementById('least_fav').value,
-                recommend: document.getElementById('recommend').checked,
-                comments: document.getElementById('comment').value
+                // shopName: document.getElementById('shop-name').value,
+                // favoriteDrink: document.getElementById('fav_drink').value,
+                // leastFav: document.getElementById('least_fav').value,
+                // recommend: document.getElementById('recommend').checked,
+                // comments: document.getElementById('comment').value
             }
             fetch(baseUrl + '/people', {
                 method: "POST", 
@@ -159,6 +148,7 @@ const baseUrl = 'http://localhost:3000'
                 eventClick()   
             })
          function deleteStory() {
+             this.id
          }   
         }
      
