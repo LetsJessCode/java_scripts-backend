@@ -1,13 +1,14 @@
 const viewButton = document.getElementById('javaBars')
 const newButton = document.getElementById('newJava')
+const deleteButton = document.getElementById('delete')
+const viewJava = document.getElementById('viewJava')
+const editButton = document.getElementById('edit')
 
 const baseUrl = 'http://localhost:3000'
 
         window.addEventListener('load', () => {
             eventClick()
         })
-
-
 
     function loadPeople() {
         // resetStory()
@@ -30,15 +31,7 @@ const baseUrl = 'http://localhost:3000'
     }
            
 
-    function eventClick() {
-        let people = document.querySelectorAll('li a')
-            people.forEach(person => {
-                person.addEventListener('click', displayStory)
-                }) 
-
-            document.getElementById('newJava').addEventListener('click', displayCreateStory)
-            document.getElementById('viewJava').addEventListener('click', loadPeople)
-            }
+    
          //show link
 
     // function getStory() {
@@ -69,13 +62,15 @@ const baseUrl = 'http://localhost:3000'
     //     )}
 
         function displayStory() { 
-           // resetULs()
+            //resetULs()
             let id = event.target.dataset.id
-            let showJava = document.querySelector('#show-java ul')
+            let showJavaDiv = document.getElementById('show-java')
+            let theJava = document.getElementById('the-java')
+            const java = document.createElement('li')
             fetch(baseUrl + '/people/'+id)
             .then(resp => resp.json())
             .then(person => {
-               let li = `
+                 `
                 <h3>${person.name}'s Java Story</h3> 
                 `
                 let ul = document.querySelector(`li#person-${person.id} #javaBars`)
@@ -87,6 +82,8 @@ const baseUrl = 'http://localhost:3000'
                         Least Favorite Drink: ${java_bar.least_fav}<br>
                         Recommend: ${java_bar.recommend ? "Yes" : "No"}<br>
                         Comments: ${java_bar.comment}
+                        <button id='delete'> Delete Story </button>
+                        <button id='edit'> Update Story </button>
                     </li>`
                })
            })
@@ -161,6 +158,8 @@ const baseUrl = 'http://localhost:3000'
                 `
                 eventClick()   
             })
-        } 
+         function deleteStory() {
+         }   
+        }
      
     

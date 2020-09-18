@@ -1,2 +1,13 @@
-// document.getElementById('newJava').addEventListener('click', displayCreateStory)
-// document.getElementById('javaBars').addEventListener('click', displayStories)
+    function eventClick() {
+        let people = document.querySelectorAll('li a')
+            people.forEach(person => {
+                person.addEventListener('click', displayStory)
+                })             
+            newButton.addEventListener('click', displayCreateStory)
+            viewJava.addEventListener('click', loadPeople)
+        }
+
+        function editDelete() {
+            deleteButton.addEventListener('submit', deleteStory) //delete request /java_bars/id
+            editButton.addEventListener('submit', editStory)
+        }
