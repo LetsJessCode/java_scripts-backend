@@ -10,21 +10,25 @@ const baseUrl = 'http://localhost:3000'
 
 
     function loadPeople() {
-      const main = document.getElementById('main')
+        // resetStory()
+        const main = document.getElementById('main')
         fetch(baseUrl + '/people') 
         .then(resp => resp.json()) 
         .then(people => {
-           main.innerHTML += people.map(person => 
-                    `
-            <li>
-                <a href="#" data-id="${person.id}">${person.name}'s Java Story...</a>   
-            </li>
-                    `
-           ).join('')
-
-            eventClick()          
-           })
-        }
+            people.forEach(person => {
+              main.innerHTML +=  `
+                <li id="person-${person.id}">
+                    <a href="#" data-id="${person.id}">${person.name}'s Java Story...</a> 
+                    <ul id="javaBars">
+                    </ul>  
+                </li>
+                `
+                eventClick()   
+                         
+            })
+        })  
+    }
+           
 
     function eventClick() {
         let people = document.querySelectorAll('li a')
@@ -53,33 +57,52 @@ const baseUrl = 'http://localhost:3000'
     //          javaBars.forEach(javaBar => 
     //             `
     //        <li>
-    //             Name: <a href="#" data-id="${javaBar.person.id}">${javaBar.person.name}></a>
-    //             Shop Name: ${javaBar.shop_name}
-    //             Favorite Drink: ${javaBar.fav_drink}
-    //             Least Favorite Drink: ${javaBar.least_fav}
-    //             Recommend: ${javaBar.recommend ? "Yes" : "No"}
-    //             Comments: ${javaBar.comment}
+    //             Name: <a href="#" data-id="${java_bar.person.id}">${java_bar.person.name}></a>
+    //             Shop Name: ${java_bar.shop_name}
+    //             Favorite Drink: ${java_bar.fav_drink}
+    //             Least Favorite Drink: ${java_bar.least_fav}
+    //             Recommend: ${java_bar.recommend ? "Yes" : "No"}
+    //             Comments: ${java_bar.comment}
     //        </li>
     //             `
             
     //     )}
 
         function displayStory() { 
-            //clearForm()
+           // resetULs()
             let id = event.target.dataset.id
-            let main = document.getElementById('main')
-            main.innerHTML = ""
+            let showJava = document.querySelector('#show-java ul')
             fetch(baseUrl + '/people/'+id)
             .then(resp => resp.json())
             .then(person => {
-                main.innerHTML += `
+               let li = `
                 <h3>${person.name}'s Java Story</h3> 
                 `
-            })
-            
+                let ul = document.querySelector(`li#person-${person.id} #javaBars`)
+                person.java_bars.forEach(java_bar => {
+                    ul.innerHTML += `
+                    <li>
+                        Shop Name: ${java_bar.shop_name}<br>
+                        Favorite Drink: ${java_bar.fav_drink}<br>
+                        Least Favorite Drink: ${java_bar.least_fav}<br>
+                        Recommend: ${java_bar.recommend ? "Yes" : "No"}<br>
+                        Comments: ${java_bar.comment}
+                    </li>`
+               })
+           })
+        }  
+
+        function resetULs(){
+            let showJavaUl = document.querySelector('#show-java ul')
+            showJavaUl.innerHTML = ""
+
+            let showJava = document.querySelector('#show-java')
+            showJava.innerHTML = ""
         }
 
         function resetStory() {
+            let javaFormDiv = document.getElementById('java-form')
+            javaFormDiv.innerHTML = ""
         }
 
         function displayCreateStory() {
